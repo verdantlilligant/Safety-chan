@@ -1,0 +1,1 @@
+# Minimal Discord Bot for Safety Third
