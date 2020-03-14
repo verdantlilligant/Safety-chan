@@ -1,6 +1,5 @@
-import os
-
 from bot import bot
+import os
 
 if "SAFETY_BOT_TOKEN" not in os.environ:
   print("No Bot token provided", file=os.sys.stderr)
