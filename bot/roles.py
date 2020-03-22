@@ -46,6 +46,8 @@ class RolesManager(Cog):
     """
     Adds one or more roles to a person.
 
+    >addRoles @Safety-chan role1 role2
+
     Args:
       person (Member): The person who is receiving more roles
       roles (Greedy[Role]) A list of roles to be added
@@ -62,11 +64,13 @@ class RolesManager(Cog):
   @commands.command()
   async def removeRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
-    Sets the list of roles of one person
+    Removes one or role roles from a person
+
+    >removeRoles @Safety-chan role1 role2
 
     Args:
-      person (Member):  The person whose roles are being set
-      roles (Greedy[Role]): A list of roles to be set
+      person (Member): The person who will be losing roles
+      roles (Greedy[Role]): A list of roles to be removed
 
     Raises:
       NoRolesError: if no existing roles are provided
@@ -80,11 +84,13 @@ class RolesManager(Cog):
   @commands.command()
   async def setRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
-    Removes one or role roles from a person
+    Sets the list of roles of one person
+   
+    >setRoles @Safety-chan role1 role2
 
     Args:
-      person (Member): The person who will be losing roles
-      roles (Greedy[Role]): A list of roles to be removed
+      person (Member):  The person whose roles are being set
+      roles (Greedy[Role]): A list of roles to be set
 
     Raises:
       NoRolesError: if no existing roles are provided
