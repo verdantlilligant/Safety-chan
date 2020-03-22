@@ -5,6 +5,7 @@ from discord.ext.commands import Cog, CommandInvokeError, Context, Greedy
 from typing import Set
 
 class NoRolesError(Exception):
+  """An exception that is thrown when no valid roles are given"""
   async def handle_error(self, ctx: Context):
     roles = [role.name for role in ctx.guild.roles if role.name != "@everyone"]
     await ctx.send(f"No valid roles provided. Here are some possible roles: {roles}")
@@ -39,10 +40,11 @@ class RolesManager(Cog):
     else:
       await ctx.send(error.args)
 
+  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
   @commands.command()
   async def addRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
-    Adds one or more roles to a person
+    Adds one or more roles to a person.
 
     Args:
       person (Member): The person who is receiving more roles
@@ -56,6 +58,7 @@ class RolesManager(Cog):
     await person.add_roles(*roles)
     await ctx.send(f"Adding {pluralize(person, roles)}")
 
+  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
   @commands.command()
   async def removeRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
@@ -73,6 +76,7 @@ class RolesManager(Cog):
     await person.remove_roles(*roles)
     await ctx.send(f"Removing {pluralize(person, roles)}")
 
+  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
   @commands.command()
   async def setRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
