@@ -109,7 +109,7 @@ class PollManager(Cog):
       joined_str = ", ".join(wins)
       result_msg += f"**Tie between {joined_str}** ({max_count} {max_vote_msg} each)\n\n>>> "
     else:
-      result_msg += f"**{wins[0]}** wins! ({max_vote_msg} votes)\n\n>>> "
+      result_msg += f"**{wins[0]}** wins! ({max_count} {max_vote_msg})\n\n>>> "
 
     for idx in range(len(wins), len(results)):
       vote_msg = vote_str(results[idx][0])
