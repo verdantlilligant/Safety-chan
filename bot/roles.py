@@ -40,7 +40,7 @@ class RolesManager(Cog):
     else:
       await ctx.send(error.args)
 
-  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
+  @commands.has_permissions(administrator=True)
   @commands.command()
   async def addRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
@@ -60,7 +60,7 @@ class RolesManager(Cog):
     await person.add_roles(*roles)
     await ctx.send(f"Adding {pluralize(person, roles)}")
 
-  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
+  @commands.has_permissions(administrator=True)
   @commands.command()
   async def removeRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
@@ -80,7 +80,7 @@ class RolesManager(Cog):
     await person.remove_roles(*roles)
     await ctx.send(f"Removing {pluralize(person, roles)}")
 
-  @commands.check_any(commands.is_owner(), commands.has_permissions(administrator=True))
+  @commands.has_permissions(administrator=True)
   @commands.command()
   async def setRoles(self, ctx: Context, person: Member, roles: Greedy[Role]):
     """
