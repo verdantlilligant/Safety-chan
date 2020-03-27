@@ -10,6 +10,9 @@ from threading import Timer
 from typing import List, Optional, Tuple
 from tzlocal import get_localzone
 
+from .util import get_date
+
+date_formats = ["%m/%d/%y", "%m/%d/%Y"]
 seconds_in_year = 60 * 60 * 24 * 365.2425
 
 def compare_people(a: Tuple[str, Optional[datetime]], b: Tuple[str, Optional[datetime]]):
@@ -27,14 +30,6 @@ def compare_people(a: Tuple[str, Optional[datetime]], b: Tuple[str, Optional[dat
   
   return a[1].day - b[1].day
 
-def get_date(input: str) -> Optional[datetime]:
-  try:
-    return datetime.strptime(input, "%m/%d/%y")
-  except ValueError:
-    try:
-      return datetime.strptime(input, "%m/%d/%Y")
-    except ValueError:
-      return None
 
 def localtime(input: datetime, tz) -> datetime:
   return tz.normalize(tz.localize(input))
@@ -75,7 +70,7 @@ class BirthdayManager(Cog):
       for person in data:
         kerberos = person[1]
         birthday = person[9] if len(person) >= 10 else person[-1]
-        self.birthdays.append((kerberos, get_date(birthday)))
+        self.birthdays.append((kerberos, get_date(birthday, date_formats)))
 
       self.birthdays.sort(key=cmp_to_key(compare_people))
 
