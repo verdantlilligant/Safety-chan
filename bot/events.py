@@ -23,7 +23,7 @@ async def register_event(channel_id: int, event: str, time: str, members: List[s
     members (List[str]): a list of people who have signed up for this event. The creator is first in the list
   """
   message = dedent(f"""
-  Time for {event}!
+  Time for "**{event}**"!
   {" ".join(members)} 
   """)
   channel = bot.bot.get_channel(channel_id)
