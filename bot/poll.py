@@ -29,7 +29,7 @@ class PollManager(Cog):
     return current_time - old_time >= minutes * 10
 
   @commands.command()
-  async def poll(self, ctx, topic: str, timing: int, *options):
+  async def poll(self, ctx: Context, topic: str, timing: int, *options):
     """
     Creates an emoji-based poll for a certain topic.
     NOTE: It is important that statements involving multiple words are quoted if you want them to be together.
