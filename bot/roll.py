@@ -75,7 +75,7 @@ class RollManager(Cog):
     message = f"{count}d{size}"
 
     if addition != 0:
-      message += str(addition)
+      message += f"+{str(addition)}"
 
     if low_drop != 0:
       message += f", drop {low_drop} lowest"
