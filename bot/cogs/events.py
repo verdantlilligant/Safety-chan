@@ -7,8 +7,7 @@ from textwrap import dedent
 from typing import List
 
 from .base import CustomCog
-from .scheduler import redlocks, scheduler
-from .util import get_local_date
+from ..util import get_local_date, redlocks, scheduler
 
 import bot
 
