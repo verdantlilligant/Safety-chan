@@ -1,8 +1,9 @@
 from discord import Member, Role
 from discord.ext import commands
 from discord.ext.commands import Cog, CommandInvokeError, Context, Greedy
-
 from typing import Set
+
+__all__ = ["RolesManager"]
 
 class NoRolesError(Exception):
   """An exception that is thrown when no valid roles are given"""

@@ -12,6 +12,8 @@ from tzlocal import get_localzone
 
 from .util import get_date
 
+__all__ = ["BirthdayManager"]
+
 date_formats = ["%m/%d/%y", "%m/%d/%Y"]
 seconds_in_year = 60 * 60 * 24 * 365.2425
 

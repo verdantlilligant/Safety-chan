@@ -1,15 +1,18 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime, timedelta
 from dateutil.tz import tzlocal
 from discord.channel import TextChannel
 from discord.ext import commands
-from discord.ext.commands import Bot, Cog, Context, CommandInvokeError
-from redlock import RedLockFactory
+from discord.ext.commands import Bot, Context
 from textwrap import dedent
 from typing import List
 
-import bot
+from .base import CustomCog
+from .scheduler import redlocks, scheduler
 from .util import get_local_date
+
+import bot
+
+__all__ = ["EventsManager"]
 
 async def register_event(channel_id: int, event: str, time: str, members: List[str]=[]):
   """
@@ -23,30 +26,16 @@ async def register_event(channel_id: int, event: str, time: str, members: List[s
     members (List[str]): a list of people who have signed up for this event. The creator is first in the list
   """
   message = dedent(f"""
-  Time for "**{event}**"!
+  Time for **{event}**!
   {" ".join(members)} 
   """)
   channel = bot.bot.get_channel(channel_id)
   await channel.send(message)
 
-factory = RedLockFactory([{
-  "host": "127.0.0.1"
-}])
-
-class EventsManager(Cog):
+class EventsManager(CustomCog):
   def __init__(self, bot: Bot):
     self.bot = bot
-    self.scheduler = AsyncIOScheduler()
-    self.scheduler.add_jobstore("redis")
-    self.scheduler.start()
 
-  async def cog_command_error(self, ctx: Context, error: CommandInvokeError):
-    """
-    Handles errors for events commands
-    """
-    await ctx.send(error.original)
-
-  @commands.guild_only()
   @commands.command()
   async def schedule(self, ctx: Context, event: str, time: str):
     """
@@ -79,12 +68,12 @@ class EventsManager(Cog):
 
     wait = (scheduled_date - now)
     
-    job = self.scheduler.add_job(register_event, 'date', run_date=scheduled_date, args=[
+    job = scheduler.add_job(register_event, 'date', run_date=scheduled_date, args=[
       ctx.channel.id, event, time, [ctx.message.author.mention]
     ])
     
     msg = dedent(f"""
-    "**{event}**" by {ctx.message.author.mention} for {time} ({local_time}, {wait} from now)
+    @here, **{event}** by {ctx.message.author.mention} for {time} ({local_time}, {wait} from now)
     Sign up with the id **{job.id}**
     """)
 
@@ -108,8 +97,8 @@ class EventsManager(Cog):
     event = ""
     time = ""
 
-    with factory.create_lock(jobid):
-      job = self.scheduler.get_job(jobid)
+    with redlocks.create_lock(jobid):
+      job = scheduler.get_job(jobid)
 
       if job is None:
         raise ValueError(f"The job {jobid} does not exist")
@@ -151,15 +140,15 @@ class EventsManager(Cog):
     author    = ctx.message.author.mention
     error_msg = ""
 
-    with factory.create_lock(jobid):
-      job = self.scheduler.get_job(jobid)
+    with redlocks.create_lock(jobid):
+      job = scheduler.get_job(jobid)
 
       if job:
         args = job.args
 
         if args[3][0] == author:
           try:
-            self.scheduler.remove_job(jobid)
+            scheduler.remove_job(jobid)
           except:
             error_msg = "An error occurred when trying to cancel your job"
         else:
