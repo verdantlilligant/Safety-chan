@@ -1,11 +1,7 @@
 from discord import Member, Role, User
 from discord.ext.commands import Bot, CommandInvokeError, DefaultHelpCommand, Context, Converter, Greedy
 
-from .birthdays import BirthdayManager
-from .events import EventsManager
-from .poll import PollManager
-from .roles import RolesManager
-from .roll import RollManager
+from .cogs import BirthdayManager, EventsManager, PollManager, RolesManager, RollManager, StatusManager
 
 __all__ = ["bot"]
 
@@ -16,3 +12,4 @@ bot.add_cog(EventsManager(bot))
 bot.add_cog(PollManager(bot))
 bot.add_cog(RolesManager(bot))
 bot.add_cog(RollManager(bot))
+bot.add_cog(StatusManager(bot))

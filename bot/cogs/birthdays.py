@@ -10,7 +10,7 @@ from threading import Timer
 from typing import List, Optional, Tuple
 from tzlocal import get_localzone
 
-from .util import get_date
+from ..util import get_date, sheets
 
 __all__ = ["BirthdayManager"]
 
@@ -45,9 +45,6 @@ class BirthdayManager(Cog):
 
     self.channel = int(environ.get("SAFETY_ANNOUNCEMENT_CHANNEL"))
     self.doc = environ.get("SAFETY_GOOGLE_DOCS_LINK")
-    self.key = environ.get("SAFETY_GOOGLE_KEY")
-    self.service = build("sheets", "v4", developerKey=self.key)
-    
     self.refresh_birthdays.start()
 
     self.scheduler = AsyncIOScheduler()
@@ -61,7 +58,7 @@ class BirthdayManager(Cog):
   @tasks.loop(hours=48)
   async def refresh_birthdays(self):
     async with self.lock:
-      data = self.service.spreadsheets() \
+      data = sheets.spreadsheets() \
         .values() \
         .get(spreadsheetId=self.doc, range="A2:J500") \
         .execute() \

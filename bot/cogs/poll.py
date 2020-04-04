@@ -10,7 +10,7 @@ from time import time
 from typing import List, Tuple
 
 from .base import CustomCog
-from .scheduler import scheduler
+from ..util import scheduler
 
 import bot
 
