@@ -32,7 +32,6 @@ redis==3.4.1
 redlock==1.2.0
 requests==2.23.0
 rsa==4.0
-Safety-chan==1.0
 six==1.14.0
 tzlocal==2.0.0
 uritemplate==3.0.1

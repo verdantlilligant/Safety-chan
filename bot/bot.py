@@ -7,6 +7,8 @@ from .poll import PollManager
 from .roles import RolesManager
 from .roll import RollManager
 
+__all__ = ["bot"]
+
 bot = Bot(command_prefix='>', help_command=DefaultHelpCommand(dm_help=True))
 
 bot.add_cog(BirthdayManager(bot))

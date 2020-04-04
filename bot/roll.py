@@ -1,27 +1,24 @@
 from discord.ext import commands
 from discord.ext.commands import Cog, Context, command, CommandInvokeError
 from random import SystemRandom
+from re import match
 from textwrap import dedent
 from typing import List, Tuple
 
-import re
+from .base import CustomCog
+
+__all__ = ["RollManager"]
 
 r = SystemRandom()
 
 pattern = r'(?P<count>\d+)d(?P<size>\d+)((?P<addition>[+-]\d+))?(dl(?P<low>\d*))?(dh(?P<high>\d*))?'
 
-class RollManager(Cog):
+class RollManager(CustomCog):
   """
   Shortcut for rolling dice
   """
   def __init__(self, bot):
     self.bot = bot
-
-  async def cog_command_error(self, ctx: Context, error: CommandInvokeError):
-    """
-    Handles errors for roll commands
-    """
-    await ctx.send(error.original)
 
   def make_roll(self, input: str) -> Tuple[str, List[int], List[int]]:
     """
@@ -33,7 +30,7 @@ class RollManager(Cog):
     Raises:
       ValueError if the input is malformed
     """
-    groups = re.match(pattern, input)
+    groups = match(pattern, input)
 
     if groups == None:
       raise ValueError(f"Not a valid roll {input}")
