@@ -188,7 +188,7 @@ class PollManager(CustomCog):
 
     time_msg = "minutes" if timing > 1 else "minute"
 
-    poll = f"@here poll by {ctx.message.author.mention} ({timing} {time_msg}): **{topic}**\n\n>>> "
+    poll = f"poll by {ctx.message.author.mention} ({timing} {time_msg}): **{topic}**\n\n>>> "
 
     for idx in range(len(options)):
       poll += f"{idx + 1}. {options[idx]}\n"

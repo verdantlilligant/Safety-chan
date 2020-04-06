@@ -72,7 +72,7 @@ class EventsManager(CustomCog):
     ])
     
     msg = dedent(f"""
-    @here, **{event}** by {ctx.message.author.mention} for {time} ({local_time}, {wait} from now)
+    **{event}** by {ctx.message.author.mention} for {time} ({local_time}, {wait} from now)
     Sign up with the id **{job.id}**
     """)
 
