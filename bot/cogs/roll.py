@@ -148,7 +148,7 @@ class RollManager(CustomCog):
         else:
           message += f"\n{roll}: **{result_sum}**\n"
 
-      total_sum += sum(actual_result)
+      total_sum += result_sum
 
     mention = ctx.message.author.mention
     total_mesg = f"{mention}, you rolled a total of **{total_sum}**:\n\n>>> {message.lstrip()}"
