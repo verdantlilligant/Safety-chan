@@ -20,7 +20,7 @@ class RollManager(CustomCog):
   def __init__(self, bot):
     self.bot = bot
 
-  def make_roll(self, input: str) -> Tuple[str, List[int], List[int]]:
+  def make_roll(self, input: str) -> Tuple[str, List[int], List[int], int]:
     """
     Handles a single role
 
@@ -67,7 +67,7 @@ class RollManager(CustomCog):
     rolls = []
 
     for _ in range(0, count):
-      rolls.append(r.randint(1, size) + addition)
+      rolls.append(r.randint(1, size))
 
     message = f"{count}d{size}"
 
@@ -84,7 +84,7 @@ class RollManager(CustomCog):
       message += f", drop {high_drop} highest"
 
     rolls.sort()
-    return (message, rolls, rolls[low_drop:len(rolls) - high_drop])
+    return (message, rolls, rolls[low_drop:len(rolls) - high_drop], addition)
 
   def pretty_array(self, list: List) -> str:
     return ', '.join(str(x) for x in list)
@@ -123,9 +123,9 @@ class RollManager(CustomCog):
     total_sum = 0
 
     for entry in args:
-      [roll, display_result, actual_result] = self.make_roll(entry)
+      [roll, display_result, actual_result, addition] = self.make_roll(entry)
 
-      result_sum = sum(actual_result)
+      result_sum = sum(actual_result) + addition
 
       if len(display_result) != len(actual_result):
         result_avg = result_sum / len(actual_result)
@@ -134,7 +134,7 @@ class RollManager(CustomCog):
 
         message += dedent(f"""
         {roll}: **{result_sum}**
-        {self.pretty_array(actual_result)} ({result_avg} avg)
+        {self.pretty_array(actual_result)} ({result_avg} avg) + {addition}
         {self.pretty_array(removed_elements)} (dropped)
         """)
       else:
@@ -143,7 +143,7 @@ class RollManager(CustomCog):
 
           message += dedent(f"""
           {roll}: **{result_sum}**
-          {self.pretty_array(display_result)} ({average} avg)
+          {self.pretty_array(display_result)} ({average} avg) + {addition}
           """)
         else:
           message += f"\n{roll}: **{result_sum}**\n"
