@@ -9,5 +9,5 @@ class SibylManager(Cog):
 
   @is_owner()
   @command()
-  async def impersonate(self, ctx: Context, channel: TextChannel, msg: str):
+  async def sibyl(self, ctx: Context, channel: TextChannel, msg: str):
     await channel.send(f"```{msg}```")

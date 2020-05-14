@@ -3,5 +3,9 @@ from .status import StatusManager
 
 __all__ = [
   "SibylManager",
-  "StatusManager"
+  "StatusManager",
+  "CreditManager",
+  "PayManger",
+  "HandoutManager",
+  "FineManager"
 ]
