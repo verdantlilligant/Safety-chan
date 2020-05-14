@@ -29,3 +29,6 @@ fine(username, amount):
   
 reward(username, amount):
   Add Thadbucks to someone's account. Rewards are public.
+  
+adjust(username, amount):
+  Increment or decrement credit score. Information is not public.
