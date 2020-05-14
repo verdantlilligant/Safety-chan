@@ -1,9 +1,9 @@
 from discord import TextChannel
 from discord.ext.commands import Bot, Cog, Context, command, is_owner
 
-__all__ = ["ImpersonateManager"]
+__all__ = ["SibylManager"]
 
-class ImpersonateManager(Cog):
+class SibylManager(Cog):
   def __init__(self, bot: Bot):
     self.bot = bot
 

@@ -1,7 +1,7 @@
-from .impersonate import ImpersonateManager
+from .sibyl import SibylManager
 from .status import StatusManager
 
 __all__ = [
-  "ImpersonateManager",
+  "SibylManager",
   "StatusManager"
 ]
