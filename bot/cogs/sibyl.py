@@ -10,4 +10,4 @@ class SibylManager(Cog):
   @is_owner()
   @command()
   async def sibyl(self, ctx: Context, channel: TextChannel, msg: str):
-    await channel.send(f"```{msg}\n```")
+    await channel.send(f"```{msg}\n-the Sibyl```")
