@@ -17,7 +17,7 @@ class StatusManager(Cog):
     self.roles_doc = environ.get("SAFETY_ROLES_GOOGLE_LINK")
     self.change_status.start()
 
-  @tasks.loop(minutes=30)
+  @tasks.loop(minutes=60)
   async def change_status(self):
     """
     Change the "game" this bot is playing by pulling from a list from google docs
