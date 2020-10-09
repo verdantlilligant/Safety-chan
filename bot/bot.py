@@ -1,7 +1,7 @@
 from discord import Member, Role, User
 from discord.ext.commands import Bot, CommandInvokeError, DefaultHelpCommand, Context, Converter, Greedy
 
-from .cogs import SibylManager, StatusManager, CreditManager, ReportManager, FineManager, RewardManager, 
+from .cogs import SibylManager, StatusManager, CreditManager, ReportManager, FineManager, RewardManager
 AdjustManager, MirandaManager, HandoutManager
 
 __all__ = ["bot"]
