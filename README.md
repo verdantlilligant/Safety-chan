@@ -22,7 +22,7 @@ sibyl(message):
   Sibyl-chan's override message allowing administrators to send a message as her.
 
 handout(amount):
-  Universal basic income generator. Use sparingly.
+  Universal basic income generator. Use sparingly at the start of each month.
 
 fine(username, amount): 
   Subtract Thadbucks from someone's account. Fines are public.
